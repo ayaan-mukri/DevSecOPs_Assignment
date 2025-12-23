@@ -12,7 +12,6 @@ pipeline {
         stage('Checkout') {
             steps {
                 cleanWs()
-                // Points to YOUR new repository
                 git branch: 'main', url: 'https://github.com/ayaan-mukri/DevSecOPs_Assignment.git'
             }
         }
@@ -20,11 +19,9 @@ pipeline {
         stage('Security Scan (Trivy)') {
             steps {
                 sh '''
-                  # Install Trivy only if not present
                   if ! command -v trivy &> /dev/null; then
                     curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
                   fi
-                  # Scan the current directory
                   trivy config . --severity HIGH,CRITICAL || true
                 '''
             }
@@ -32,17 +29,23 @@ pipeline {
 
         stage('Infrastructure (Terraform)') {
             steps {
-                // Ensure your main.tf is inside a folder named 'terraform'
                 dir('terraform') {
                     sh '''
-                    # Check if terraform is installed, if not, download using curl
+                    # 1. Install Terraform if not present
                     if ! command -v terraform &> /dev/null; then
                         curl -LO https://releases.hashicorp.com/terraform/1.6.6/terraform_1.6.6_linux_amd64.zip
                         unzip -o terraform_1.6.6_linux_amd64.zip
                         mv terraform /usr/local/bin/
                     fi
+
+                    # 2. Get the current Public IP of the Jenkins agent
+                    # We add /32 to make it a valid CIDR block for AWS
+                    CURRENT_IP=$(curl -s https://checkip.amazonaws.com)/32
+                    echo "Deploying with allowed SSH IP: $CURRENT_IP"
+
+                    # 3. Initialize and Apply with the variable
                     terraform init
-                    terraform apply -auto-approve
+                    terraform apply -var="my_ip=$CURRENT_IP" -auto-approve
                     '''
                 }
             }
@@ -51,7 +54,6 @@ pipeline {
         stage('Deploy Frontend (Docker)') {
             steps {
                 echo 'Deploying React Frontend via Docker Compose...'
-                // Cleans up old container and builds the new one
                 sh 'docker-compose down || true'
                 sh 'docker-compose up -d --build'
             }

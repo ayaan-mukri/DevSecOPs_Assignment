@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 variable "my_ip" {
-  description = "Your local public IP address for SSH access"
+  description = "Public IP allowed for SSH"
   type        = string
 }
 
@@ -16,7 +16,7 @@ resource "aws_security_group" "potato_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = [var.my_ip] # FIXED: Correct variable syntax
+    cidr_blocks = [var.my_ip] 
   }
 
   ingress {
