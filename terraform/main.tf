@@ -2,6 +2,11 @@ provider "aws" {
   region = "us-east-1"
 }
 
+variable "my_ip" {
+  description = "Your local public IP address for SSH access"
+  type        = string
+}
+
 # 1. Create the Security Group
 resource "aws_security_group" "potato_sg" {
   name        = "potato_leaf_sg"
@@ -11,7 +16,7 @@ resource "aws_security_group" "potato_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] # Change this to your IP for better security
+    cidr_blocks = [var.my_ip] # FIXED: Correct variable syntax
   }
 
   ingress {
@@ -31,23 +36,27 @@ resource "aws_security_group" "potato_sg" {
 
 # 2. Create the EC2 Instance
 resource "aws_instance" "potato_server" {
-  ami           = "ami-053b0d53c279acc90" # Ubuntu 22.04 LTS in us-east-1
+  ami           = "ami-053b0d53c279acc90" 
   instance_type = "t3.micro"             
   key_name      = "len_den_club_2.0"    
 
   security_groups = [aws_security_group.potato_sg.name]
 
-  # THE SPACE FIX: Increasing Root Volume to 20GB
+  # FIX: Required for security scans
+  metadata_options {
+    http_tokens = "required"
+  }
+
   root_block_device {
     volume_size = 20
     volume_type = "gp3"
+    encrypted   = true # FIX: Required for security scans
   }
 
   tags = {
     Name = "PotatoLeaf-Frontend-Server"
   }
 
-  # Automatically install Docker and Docker-Compose on startup
   user_data = <<-EOF
               #!/bin/bash
               sudo apt-get update -y
