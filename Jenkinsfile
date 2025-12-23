@@ -35,9 +35,9 @@ pipeline {
                 // Ensure your main.tf is inside a folder named 'terraform'
                 dir('terraform') {
                     sh '''
-                    # Install Terraform only if not present
+                    # Check if terraform is installed, if not, download using curl
                     if ! command -v terraform &> /dev/null; then
-                        wget -q https://releases.hashicorp.com/terraform/1.6.6/terraform_1.6.6_linux_amd64.zip
+                        curl -LO https://releases.hashicorp.com/terraform/1.6.6/terraform_1.6.6_linux_amd64.zip
                         unzip -o terraform_1.6.6_linux_amd64.zip
                         mv terraform /usr/local/bin/
                     fi
