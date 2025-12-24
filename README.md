@@ -53,3 +53,4 @@ How AI was Utilized:
 -    **Error Debugging:** AI assisted in resolving complex **"Exit Code 127"** errors by identifying missing dependencies (like `wget`) and suggesting robust alternatives like curl.
 -    **Security Logic:** AI acted as a security consultant to interpret **Trivy** scan results, providing the specific **HCL (HashiCorp Configuration Language)** and **Dockerfile** syntax required to remediate **High** and **Critical** vulnerabilities.
 -    **Troubleshooting Network Connectivity:** AI provided step-by-step guidance on debugging SSH timeouts and **Security Group** logic, helping to differentiate between Jenkins-side access and local developer access.
+-    [AI Usage Log](https://docs.google.com/document/d/1bAtxdVb9GrVRMFzLtR2jNDFWMtfcCT9wBkpPAJuZGXY/edit?usp=sharing)
