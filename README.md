@@ -59,3 +59,6 @@ How AI was Utilized:
 The project implements a robust, end-to-end Jenkins Pipeline designed to handle both successful deployments and failure contingencies. This DevSecOps lifecycle automates everything from source code checkout and Trivy security scanning to automated infrastructure provisioning via Terraform and containerized deployment.
 -    [Success Build](https://docs.google.com/document/d/199mCMPFUOpwwnF3GIabmaK0iLWBinJeeM_wZWHwHC5Y/edit?usp=sharing)
 -    [Failure Build](https://docs.google.com/document/d/1xdtL-4bJLXLQy3138gTtKHeUDSROtXXSY6MEtUV_5Is/edit?usp=sharing)
+
+# 🖇️Public IP for deployed website
+-    **Hosted Website:** http://13.219.183.89:3000/
