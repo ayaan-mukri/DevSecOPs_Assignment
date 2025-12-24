@@ -9,8 +9,8 @@ variable "my_ip" {
 
 # 1. Create the Security Group
 resource "aws_security_group" "potato_sg" {
-  name        = "potato_leaf_sg"
-  description = "Allow SSH, HTTP, and React port"
+  name        = "potato_leaf_sg-"
+  description = "Allow SSH and React port"
 
   ingress {
     from_port   = 22
