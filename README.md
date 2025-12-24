@@ -54,3 +54,8 @@ How AI was Utilized:
 -    **Security Logic:** AI acted as a security consultant to interpret **Trivy** scan results, providing the specific **HCL (HashiCorp Configuration Language)** and **Dockerfile** syntax required to remediate **High** and **Critical** vulnerabilities.
 -    **Troubleshooting Network Connectivity:** AI provided step-by-step guidance on debugging SSH timeouts and **Security Group** logic, helping to differentiate between Jenkins-side access and local developer access.
 -    [AI Usage Log](https://docs.google.com/document/d/1bAtxdVb9GrVRMFzLtR2jNDFWMtfcCT9wBkpPAJuZGXY/edit?usp=sharing)
+
+# 📃Build Failure and Success Screenshots
+The project implements a robust, end-to-end Jenkins Pipeline designed to handle both successful deployments and failure contingencies. This DevSecOps lifecycle automates everything from source code checkout and Trivy security scanning to automated infrastructure provisioning via Terraform and containerized deployment.
+-    [Success Build](https://docs.google.com/document/d/199mCMPFUOpwwnF3GIabmaK0iLWBinJeeM_wZWHwHC5Y/edit?usp=sharing)
+-    [Failure Build](https://docs.google.com/document/d/1xdtL-4bJLXLQy3138gTtKHeUDSROtXXSY6MEtUV_5Is/edit?usp=sharing)
